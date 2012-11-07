@@ -14,6 +14,8 @@ set encoding=utf-8
 set background=dark
 colorscheme base16-default
 
+let mapleader = ","
+
 " I accidentally hit F1 all the time
 imap <F1> <Esc>
 
@@ -37,3 +39,9 @@ map <C-F12> :!ctags -R -I --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " Tagbar shortcut
 nmap <F8> :TagbarToggle<CR>
+
+" CtrlP File finder
+nmap <Leader>t :CtrlP<CR>
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  'node_modules/$',
+  \ }
