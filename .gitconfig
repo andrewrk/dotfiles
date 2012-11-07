@@ -1,0 +1,16 @@
+[user]
+	name = Andrew Kelley
+	email = superjoe30@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[push]
+	default = current
+[branch]
+	autosetupmerge = true
+[core]
+	excludesfile = ~/.gitignore
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
