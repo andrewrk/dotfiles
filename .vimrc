@@ -18,11 +18,6 @@ imap <F1> <Esc>
 call pathogen#infect()
 filetype plugin indent on
 
-" file types
-au BufNewFile,BufRead *.handlebars set filetype=html
-au BufNewFile,BufRead *.mi set filetype=mason
-au BufNewFile,BufRead *.scss set filetype=scss
-
 " ==== custom macros ====
 " Delete a function call. example:  floor(int(var))
 "         press when your cursor is       ^        results in:
@@ -37,20 +32,5 @@ imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 filetype plugin on
 map <C-F12> :!ctags -R -I --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-" Tagbar
-if executable('coffeetags')
-  let g:tagbar_type_coffee = {
-        \ 'ctagsbin' : 'coffeetags',
-        \ 'ctagsargs' : '',
-        \ 'kinds' : [
-        \ 'f:functions',
-        \ 'o:object',
-        \ ],
-        \ 'sro' : ".",
-        \ 'kind2scope' : {
-        \ 'f' : 'object',
-        \ 'o' : 'object',
-        \ }
-        \ }
-endif
+" Tagbar shortcut
 nmap <F8> :TagbarToggle<CR>
