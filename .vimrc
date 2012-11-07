@@ -27,7 +27,7 @@ filetype plugin indent on
 " Delete a function call. example:  floor(int(var))
 "         press when your cursor is       ^        results in:
 "                                   floor(var)
-map <C-H> ebdw%xx
+map <C-H> ebdw%x<C-O>x
 
 " Insert a timestamp
 nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
