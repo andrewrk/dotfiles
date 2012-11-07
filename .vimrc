@@ -11,6 +11,9 @@ set modeline
 set nocompatible
 set encoding=utf-8
 
+set background=dark
+colorscheme base16-default
+
 " I accidentally hit F1 all the time
 imap <F1> <Esc>
 
