@@ -40,5 +40,5 @@ nmap <F8> :TagbarToggle<CR>
 " CtrlP File finder
 nmap <Leader>t :CtrlP<CR>
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  'node_modules/$',
+  \ 'dir':  '\/node_modules$',
   \ }
