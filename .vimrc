@@ -16,6 +16,11 @@ let mapleader = ","
 " I accidentally hit F1 all the time
 imap <F1> <Esc>
 
+" nice try, Ex mode
+map Q <Nop>
+" who uses semicolon anyway?
+map ; :
+
 " Pathogen
 call pathogen#infect()
 filetype plugin indent on

@@ -32,9 +32,7 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[0
 EDITOR=vim
 
 # cd to a possibly nonexisting directory, creating if necessary
-function ccd {
-    mkdir -p $@ && cd $@
-}
+ccd() { mkdir -p "$@" && cd "$@"; }
 
 # source bash aliases
 . ~/.bash_aliases
