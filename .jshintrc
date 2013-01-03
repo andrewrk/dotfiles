@@ -35,7 +35,7 @@
     "laxbreak"      : false,   // Tolerate unsafe line breaks e.g. `return [\n] x` without semicolons.
     "laxcomma"      : true,
     "bitwise"       : false,   // Prohibit bitwise operators (&, |, ^, etc.).
-    "boss"          : false,  // Tolerate assignments inside if, for & while. Usually conditions & loops are for comparison, not assignments.
+    "boss"          : true,  // Tolerate assignments inside if, for & while. Usually conditions & loops are for comparison, not assignments.
     "curly"         : false,  // Require {} for every new block or scope.
     "eqeqeq"        : true,   // Require triple equals i.e. `===`.
     "eqnull"        : true,  // Tolerate use of `== null`.
