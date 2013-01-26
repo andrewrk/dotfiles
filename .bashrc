@@ -34,6 +34,9 @@ EDITOR=vim
 # cd to a possibly nonexisting directory, creating if necessary
 ccd() { mkdir -p "$@" && cd "$@"; }
 
+# add ~/bin to PATH
+export PATH="~/bin:$PATH"
+
 # source bash aliases
 . ~/.bash_aliases
 
