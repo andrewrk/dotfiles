@@ -28,9 +28,6 @@
 [submodule ".vim/bundle/vim-less"]
 	path = .vim/bundle/vim-less
 	url = git://github.com/groenewege/vim-less.git
-[submodule ".vim/bundle/vim-gitgutter"]
-	path = .vim/bundle/vim-gitgutter
-	url = git@github.com:airblade/vim-gitgutter.git
 [submodule ".vim/bundle/go-vim"]
 	path = .vim/bundle/go-vim
 	url = git@github.com:uggedal/go-vim.git
