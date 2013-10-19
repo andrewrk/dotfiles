@@ -8,6 +8,13 @@
     "browser"       : true,   // Standard browser globals e.g. `window`, `document`.
 
     "node"          : true,
+
+    "predef"        : [
+        "setImmediate",
+        "clearImmediate"
+    ],
+
+
     "rhino"         : false,
     "couch"         : false,
     "wsh"           : false,   // Windows Scripting Host.
