@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ln -i -s $(pwd)/.bashrc ~/
+ln -i -s $(pwd)/.quiltrc-dpkg ~/
 ln -i -s $(pwd)/.bash_aliases ~/
 ln -i -s $(pwd)/.gitconfig ~/
 ln -i -s $(pwd)/gitignore ~/.gitignore

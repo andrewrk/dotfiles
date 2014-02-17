@@ -39,6 +39,9 @@ export PATH="~/bin:$PATH"
 export DEBFULLNAME="Andrew Kelley"
 export DEBEMAIL="superjoe30@gmail.com"
 
+alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
+complete -F _quilt_completion $_quilt_complete_opt dquilt
+
 # source bash aliases
 . ~/.bash_aliases
 
