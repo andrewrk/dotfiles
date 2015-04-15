@@ -1,3 +1,5 @@
 *.swp
 tags
 .rbenv-version
+.cproject
+.project
