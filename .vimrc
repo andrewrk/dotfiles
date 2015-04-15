@@ -10,6 +10,7 @@ set ignorecase
 set modeline
 set nocompatible
 set encoding=utf-8
+set hlsearch
 
 let mapleader = ","
 
@@ -45,5 +46,10 @@ nmap <F8> :TagbarToggle<CR>
 " CtrlP File finder
 nmap <Leader>t :CtrlP<CR>
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\/node_modules$',
+  \ 'dir':  '\/node_modules$\|\/build$',
   \ }
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
+let g:syntastic_c_include_dirs = [ 'src', 'build' ]
+let g:syntastic_cpp_include_dirs = [ 'src', 'build' ]
