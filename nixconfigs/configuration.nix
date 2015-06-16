@@ -31,6 +31,12 @@
     networkmanager.enable = true;
   };
 
+  hardware = {
+    opengl = {
+      driSupport32Bit = true;
+    };
+  };
+
   services = {
     ntp.enable = true;
     locate.enable = true;
