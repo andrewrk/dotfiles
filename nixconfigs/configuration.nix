@@ -22,7 +22,6 @@
       enable = true;
       version = 2;
       device = "/dev/sda";
-      splashImage = ./penguin.png;
     };
   };
 
@@ -36,14 +35,22 @@
     ntp.enable = true;
     locate.enable = true;
     dbus.enable = true;
+    virtualboxHost.enable = true;
   };
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
     layout = "us";
     xkbOptions = "eurosign:e";
-    synaptics.enable = true;
-    synaptics.twoFingerScroll = true;
+    synaptics = {
+      enable = true;
+      twoFingerScroll = true;
+      additionalOptions = ''
+        Option "ClickPad" "true"
+        Option "EmulateMidButtonTime" "0"
+        Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
+      '';
+    };
     desktopManager.xterm.enable = false;
     desktopManager.xfce.enable = true;
   };
@@ -68,17 +75,21 @@
     gimp
     git
     gcc
+    glxinfo
     gnumake
     htop
     iotop
     networkmanagerapplet
     nodejs
     nox
+    psmisc
+    python
     python3
-    vimHugeX
+    vlc
     wget
     xdg-user-dirs
     xchat
+    xlibs.xev
     xfce.xfce4_systemload_plugin
     xfce.xfce4_cpufreq_plugin
     xfce.xfce4_cpugraph_plugin
