@@ -81,6 +81,7 @@
     gimp
     git
     gcc5
+    gdb
     glxinfo
     gnumake
     htop
@@ -91,6 +92,7 @@
     psmisc
     python
     python3
+    valgrind
     vlc
     wget
     xdg-user-dirs
