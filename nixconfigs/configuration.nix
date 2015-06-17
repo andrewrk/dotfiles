@@ -80,7 +80,7 @@
     firefox
     gimp
     git
-    gcc
+    gcc5
     glxinfo
     gnumake
     htop

@@ -24,5 +24,5 @@ alias egrep='egrep --color=auto'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# lol
 alias mkpass='head -c 9 /dev/random | base64'
+alias gvim='vim -g'

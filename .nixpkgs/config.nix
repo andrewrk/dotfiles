@@ -21,7 +21,6 @@ pkgs : {
         set history=700
         set t_Co=256
         set tabpagemax=1000
-        set colorcolumn=80
         set ruler
         set nojoinspaces
         set shiftround
