@@ -99,6 +99,7 @@ pkgs : {
         my_vim
         steam
         ctags
+        youtube-dl
       ];
     };
   };
