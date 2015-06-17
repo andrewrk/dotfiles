@@ -1,4 +1,4 @@
 dotfiles
 ========
 
-Clone with `git clone --recursive`. Install with `./install`.
+Install with `./install`.
