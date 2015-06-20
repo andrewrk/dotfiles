@@ -3,3 +3,4 @@ tags
 .rbenv-version
 .cproject
 .project
+*.pyc

@@ -74,16 +74,18 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    cargo
     chromium
     clang
     file
     firefox
     gimp
     git
+    git-hub
+    gitAndTools.git-extras
     gcc5
     gdb
     glxinfo
-    gnumake
     htop
     iotop
     networkmanagerapplet
@@ -92,6 +94,9 @@
     psmisc
     python
     python3
+    rustc
+    s3cmd
+    upx
     valgrind
     vlc
     wget
