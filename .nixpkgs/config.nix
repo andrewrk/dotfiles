@@ -8,6 +8,7 @@ pkgs : {
         syntax on
         filetype on
         set expandtab
+        set bs=2
         set tabstop=2
         set shiftwidth=2
         set autoindent
@@ -80,6 +81,8 @@ pkgs : {
         let g:syntastic_cpp_compiler_options = ' -std=c++11'
         let g:syntastic_c_include_dirs = [ 'src', 'build' ]
         let g:syntastic_cpp_include_dirs = [ 'src', 'build' ]
+
+        let g:ycm_autoclose_preview_window_after_completion = 1
       '';
 
       vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
@@ -100,6 +103,7 @@ pkgs : {
         steam
         ctags
         youtube-dl
+        wolfebin
       ];
     };
   };
