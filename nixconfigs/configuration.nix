@@ -16,7 +16,7 @@
   time.timeZone = "US/Arizona";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
     loader.grub = {
       enable = true;
@@ -35,6 +35,9 @@
     opengl = {
       driSupport32Bit = true;
     };
+    #pulseaudio = {
+    #  enable = true;
+    #};
   };
 
   services = {
@@ -42,6 +45,7 @@
     locate.enable = true;
     dbus.enable = true;
     virtualboxHost.enable = true;
+    udisks2.enable = true;
   };
   services.xserver = {
     enable = true;
@@ -74,6 +78,9 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    ardour
+    audacity
+    busybox
     cargo
     chromium
     clang
@@ -86,16 +93,24 @@
     gcc5
     gdb
     glxinfo
+    gnupg
+    handbrake
     htop
     iotop
+    manpages
     networkmanagerapplet
     nodejs
     nox
+    p7zip
+    pavucontrol
     psmisc
     python
     python3
     rustc
     s3cmd
+    simplescreenrecorder
+    synthv1
+    unzip
     upx
     valgrind
     vlc
@@ -103,6 +118,7 @@
     xdg-user-dirs
     xchat
     xlibs.xev
+    xfce.thunar_volman
     xfce.xfce4_systemload_plugin
     xfce.xfce4_cpufreq_plugin
     xfce.xfce4_cpugraph_plugin
