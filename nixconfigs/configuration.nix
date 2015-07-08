@@ -23,6 +23,7 @@
       version = 2;
       device = "/dev/sda";
     };
+
   };
 
   networking = {
@@ -65,8 +66,17 @@
     desktopManager.xfce.enable = true;
   };
 
-  security.sudo.enable = true;
-  security.sudo.wheelNeedsPassword = false;
+  security = {
+    sudo.enable = true;
+    sudo.wheelNeedsPassword = false;
+
+    pam.loginLimits = [
+      { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
+      { domain = "@audio"; item = "rtprio"; type = "-"; value = "99"; }
+      { domain = "@audio"; item = "nofile"; type = "soft"; value = "99999"; }
+      { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
+    ];
+  };
 
   # Select internationalisation properties.
   i18n = {
@@ -80,10 +90,11 @@
   environment.systemPackages = with pkgs; [
     ardour
     audacity
-    busybox
+    bind
     cargo
     chromium
     clang
+    colordiff
     file
     firefox
     gimp
@@ -97,6 +108,7 @@
     handbrake
     htop
     iotop
+    jmtpfs
     manpages
     networkmanagerapplet
     nodejs
@@ -134,7 +146,7 @@
   users.extraUsers.andy = {
     isNormalUser = true;
     description = "Andrew Kelley";
-    extraGroups = [ "wheel"  "networkmanager" "video" "power" "vboxusers" ];
+    extraGroups = [ "wheel"  "networkmanager" "video" "power" "vboxusers" "audio" ];
     uid = 1000;
   };
 
