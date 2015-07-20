@@ -1,10 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 ln -i -s $(pwd)/.bashrc ~/
-ln -i -s $(pwd)/.quiltrc-dpkg ~/
 ln -i -s $(pwd)/.bash_aliases ~/
 ln -i -s $(pwd)/.gitconfig ~/
 ln -i -s $(pwd)/gitignore ~/.gitignore
 ln -i -s $(pwd)/.jshintrc ~/
 ln -i -s $(pwd)/.vim ~/
-ln -i -s $(pwd)/.vimrc ~/
