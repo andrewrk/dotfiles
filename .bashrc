@@ -13,6 +13,8 @@ PROMPT_COMMAND="history -a"
 HISTSIZE=50000
 HISTFILESIZE=10000000
 
+export GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
