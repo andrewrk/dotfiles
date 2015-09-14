@@ -16,12 +16,16 @@
   time.timeZone = "US/Arizona";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
     loader.grub = {
       enable = true;
       version = 2;
       device = "/dev/sda";
+    };
+
+    kernel.sysctl = {
+      vm.overcommit_memory = 2; # disable overcommit
     };
 
   };
@@ -49,6 +53,7 @@
     locate.enable = true;
     dbus.enable = true;
     udisks2.enable = true;
+    udev.packages = [ pkgs.libmtp ];
   };
   services.xserver = {
     enable = true;
@@ -108,15 +113,19 @@
     gcc5
     gdb
     glxinfo
-    gnupg
+    gnupg1
     handbrake
     hexchat
     htop
+    inkscape
     iotop
     jack2Full
     jmtpfs
+    libnotify
+    lsof
     manpages
     mpv
+    mupdf
     networkmanagerapplet
     nodejs
     nox
@@ -127,6 +136,7 @@
     python
     python3
     qjackctl
+    ruby
     rustc
     s3cmd
     simplescreenrecorder
@@ -147,6 +157,7 @@
     xfce.xfce4_power_manager
     xfce.xfce4taskmanager
     xlockmore
+    zip
   ];
 
 

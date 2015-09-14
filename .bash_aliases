@@ -10,10 +10,6 @@ alias gco='git checkout'
 alias gf='git fetch'
 alias gm='git merge'
 
-# avoid accidental overwriting
-alias mv='mv -i'
-alias cp='cp -i'
-
 # colors
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
