@@ -25,7 +25,7 @@
     };
 
     kernel.sysctl = {
-      vm.overcommit_memory = 2; # disable overcommit
+      "vm.overcommit_memory" = 2; # disable overcommit
     };
 
   };
