@@ -12,6 +12,7 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.virtualbox.enableExtensionPack = true;
+  nixpkgs.config.pulseaudio = true;
 
   time.timeZone = "US/Arizona";
 
@@ -24,10 +25,16 @@
       device = "/dev/sda";
     };
 
-    kernel.sysctl = {
-      "vm.overcommit_memory" = 2; # disable overcommit
-    };
+    # sadly disabling overcommit breaks apps such as chromium browser.
+    #kernel.sysctl = {
+    #  "vm.overcommit_memory" = 2; # disable overcommit
+    #};
 
+  };
+
+  fileSystems."/extra" = {
+    label = "extra";
+    fsType = "ext4";
   };
 
   networking = {
@@ -99,10 +106,12 @@
     ardour
     audacity
     bind
+    blender
     #cargo
     chromium
     clang
     colordiff
+    cowsay
     file
     firefox
     gcolor2
@@ -114,6 +123,7 @@
     gdb
     glxinfo
     gnupg1
+    gparted
     handbrake
     hexchat
     htop
@@ -127,10 +137,12 @@
     mpv
     mupdf
     networkmanagerapplet
+    pciutils
     nodejs
     nox
     p7zip
     pavucontrol
+    pidgin
     powertop
     psmisc
     python
@@ -140,6 +152,7 @@
     rustc
     s3cmd
     simplescreenrecorder
+    sonic-visualiser
     subversionClient
     synthv1
     telnet
