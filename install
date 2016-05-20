@@ -6,3 +6,4 @@ ln -i -s $(pwd)/.gitconfig ~/
 ln -i -s $(pwd)/gitignore ~/.gitignore
 ln -i -s $(pwd)/.jshintrc ~/
 ln -i -s $(pwd)/.vim ~/
+ln -i -s $(pwd)/.gvimrc ~/
