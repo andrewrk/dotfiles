@@ -14,42 +14,46 @@
   nixpkgs.config.virtualbox.enableExtensionPack = true;
   nixpkgs.config.pulseaudio = true;
 
-  time.timeZone = "US/Arizona";
+  time.timeZone = "America/New_York";
 
+  # Use the gummiboot efi boot loader.
   boot = {
     #kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
-    loader.grub = {
-      enable = true;
-      version = 2;
-      device = "/dev/sda";
-    };
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+
 
     # sadly disabling overcommit breaks apps such as chromium browser.
     #kernel.sysctl = {
     #  "vm.overcommit_memory" = 2; # disable overcommit
+
     #};
 
-  };
-
-  fileSystems."/extra" = {
-    label = "extra";
-    fsType = "ext4";
+    # Power saving
+    #kernelParams = [
+    #  "pcie_aspm=force"
+    #  "i915.enable_psr=1"
+    #  "i915.enable_fbc=1"
+    #  "i915.enable_rc6=7"
+    #];
   };
 
   networking = {
-    hostName = "nixos";
-    hostId = "83e4728c";
+    hostName = "xps";
     networkmanager.enable = true;
+    enableB43Firmware = true;
   };
 
   hardware = {
+    enableAllFirmware = true;
     opengl = {
       driSupport32Bit = true;
     };
     pulseaudio = {
       enable = true;
       package = pkgs.pulseaudioFull;
+      support32Bit = true;
     };
   };
 
@@ -60,11 +64,12 @@
     locate.enable = true;
     dbus.enable = true;
     udisks2.enable = true;
-    udev.packages = [ pkgs.libmtp ];
+    udev.packages = [ pkgs.libmtp.bin ];
   };
+
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
+    #videoDrivers = [ "nvidia" ];
     layout = "us";
     xkbOptions = "eurosign:e";
     synaptics = {
@@ -106,14 +111,16 @@
     ardour
     audacity
     bind
-    blender
+    #blender
     #cargo
     chromium
     clang
     colordiff
     cowsay
+    ddd
     file
     firefox
+    fzf
     gcolor2
     gimp
     git
@@ -149,13 +156,13 @@
     python3
     qjackctl
     ruby
-    rustc
+    #rustc
     s3cmd
     simplescreenrecorder
-    sonic-visualiser
-    subversionClient
+    #subversionClient
     synthv1
     telnet
+    unrar
     unzip
     upx
     valgrind
@@ -174,7 +181,7 @@
   ];
 
 
-  programs.bash.enableCompletion = true;
+  programs.fish.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.andy = {
@@ -183,5 +190,9 @@
     extraGroups = [ "wheel"  "networkmanager" "video" "power" "vboxusers" "audio" ];
     uid = 1000;
   };
+  users.defaultUserShell = "/run/current-system/sw/bin/fish";
+
+  # The NixOS release to be compatible with for stateful data such as databases.
+  system.stateVersion = "16.03";
 
 }
