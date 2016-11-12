@@ -90,18 +90,18 @@ pkgs : {
         { names = [
           "Syntastic"
           "Tagbar"
-          "ctrlp"
-          "vim-addon-nix"
-          "youcompleteme"
+          "fzf-vim"
         ]; }
       ];
     };
     all = pkgs.buildEnv {
       name = "all";
       paths = [
+        ctags
         my_vim
         steam
-        ctags
+        unetbootin
+        vkeybd
         youtube-dl
         wolfebin
       ];
