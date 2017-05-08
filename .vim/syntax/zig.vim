@@ -1,1 +1,1 @@
-/home/andy/dev/zig/doc/vim/syntax/zig.vim
+/home/andy/dev/vim-zig/syntax/zig.vim

@@ -19,3 +19,5 @@
 	smtpserver = smtp.gmail.com
 	smtpuser = superjoe30@gmail.com
 	smtpserverport = 587
+[merge]
+	conflictstyle = diff3

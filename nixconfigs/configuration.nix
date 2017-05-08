@@ -112,7 +112,7 @@
     audacity
     bind
     #blender
-    #cargo
+    cargo
     chromium
     clang
     colordiff
@@ -156,7 +156,7 @@
     python3
     qjackctl
     ruby
-    #rustc
+    rustc
     s3cmd
     simplescreenrecorder
     #subversionClient

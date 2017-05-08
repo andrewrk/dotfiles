@@ -74,8 +74,9 @@ pkgs : {
         " Tagbar shortcut
         nmap <F8> :TagbarToggle<CR>
         
-        " CtrlP File finder
-        nmap <Leader>t :CtrlP<CR>
+        " File finder
+        nmap <Leader>t :FZF<CR>
+        nmap <Leader>h :Ag<CR>
         
         let g:syntastic_cpp_compiler = 'clang++'
         let g:syntastic_cpp_compiler_options = ' -std=c++11'
@@ -90,6 +91,7 @@ pkgs : {
         { names = [
           "Syntastic"
           "Tagbar"
+          "fzfWrapper"
           "fzf-vim"
         ]; }
       ];
@@ -97,13 +99,14 @@ pkgs : {
     all = pkgs.buildEnv {
       name = "all";
       paths = [
+        ag
         ctags
         my_vim
         steam
         unetbootin
         vkeybd
-        youtube-dl
         wolfebin
+        youtube-dl
       ];
     };
   };

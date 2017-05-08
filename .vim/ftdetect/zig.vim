@@ -1,1 +1,1 @@
-/home/andy/dev/zig/doc/vim/ftdetect/zig.vim
+/home/andy/dev/vim-zig/ftdetect/zig.vim
