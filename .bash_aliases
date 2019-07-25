@@ -24,4 +24,3 @@ alias mkpass='head -c 9 /dev/urandom | base64'
 alias gvim='vim -g'
 
 
-alias zig='/home/andy/dev/zig/build/zig'

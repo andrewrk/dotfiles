@@ -1,6 +1,7 @@
 [user]
 	name = Andrew Kelley
-	email = superjoe30@gmail.com
+	email = andrew@ziglang.org
+	signingkey = 7C5F548F728501A9
 [color]
 	diff = auto
 	status = auto
@@ -16,8 +17,14 @@
 	merge = refs/heads/master
 [sendemail]
 	smtpencryption = tls
-	smtpserver = smtp.gmail.com
-	smtpuser = superjoe30@gmail.com
+	smtpserver = mail.ziglang.org
+	smtpuser = andrew@ziglang.org
 	smtpserverport = 587
 [merge]
 	conflictstyle = diff3
+[imap]
+  host = imaps://mail.ziglang.org
+  user = andrew
+  folder = "Drafts"
+[commit]
+	gpgsign = true

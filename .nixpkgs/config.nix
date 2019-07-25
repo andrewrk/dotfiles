@@ -26,9 +26,8 @@ pkgs : {
         set nojoinspaces
         set shiftround
 
-        " linebreak on 500 characters
-        set lbr
-        set tw=500
+        set nolbr
+        set tw=0
 
         " Visual mode pressing * or # searches for the current selection
         " Super useful! From an idea by Michael Naumann
@@ -59,6 +58,7 @@ pkgs : {
         "         press when your cursor is       ^        results in:
         "                                   floor(var)
         map <C-H> ebdw%x<C-O>x
+        nnoremap gp `[v`]
         
         " Insert a timestamp
         nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
@@ -84,6 +84,10 @@ pkgs : {
         let g:syntastic_cpp_include_dirs = [ 'src', 'build' ]
 
         let g:ycm_autoclose_preview_window_after_completion = 1
+
+        let g:zig_fmt_autosave = 1
+
+        set bg=dark
       '';
 
       vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
@@ -102,11 +106,10 @@ pkgs : {
         ag
         ctags
         my_vim
-        steam
-        unetbootin
-        vkeybd
         wolfebin
-        youtube-dl
+        #youtube-dl
+        signal-desktop
+        wineWowPackages.base
       ];
     };
   };

@@ -1,7 +1,11 @@
 *.swp
 *.swo
+*.swl
 tags
 .rbenv-version
 .cproject
 .project
 *.pyc
+*.swn
+*.swm
+.gdb_history

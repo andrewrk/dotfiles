@@ -1,1 +1,0 @@
-/home/andy/dev/vim-zig/syntax/zig.vim
