@@ -1,9 +1,14 @@
 set fish_greeting
 set -x EDITOR vim
+set -x FZF_DEFAULT_OPTS --exact
 
 function dev
   cd ~/dev/$argv
   nix-shell ~/env/$argv.nix
+end
+
+function gf
+  git fetch --all --prune --tags
 end
 
 function gs
@@ -31,7 +36,7 @@ function gp
 end
 
 function mkpass
-  head -c 9 /dev/urandom | base64
+  head -c 12 /dev/urandom | base64
 end
 
 function gvim
@@ -49,4 +54,8 @@ end
 
 function fish_user_key_bindings
   fzf_key_bindings
+end
+
+function clbin
+  curl -F 'clbin=<-' https://clbin.com
 end
