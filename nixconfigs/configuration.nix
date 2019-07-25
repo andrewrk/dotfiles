@@ -11,8 +11,12 @@
     ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.virtualbox.enableExtensionPack = true;
   nixpkgs.config.pulseaudio = true;
+
+  nixpkgs.config.chromium = {
+      # https://github.com/NixOS/nixpkgs/issues/22333
+      enableWideVine = false;
+  };
 
   time.timeZone = "America/New_York";
 
@@ -24,7 +28,8 @@
     loader.efi.canTouchEfiVariables = true;
 
 
-    # sadly disabling overcommit breaks apps such as chromium browser.
+    # sadly some important applications, such as firefox, behave poorly
+    # with overcommit disabled.
     #kernel.sysctl = {
     #  "vm.overcommit_memory" = 2; # disable overcommit
 
@@ -57,7 +62,11 @@
     };
   };
 
-  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = false;
+  #nixpkgs.config.virtualbox.enableExtensionPack = false;
+
+  #virtualisation.docker.enable = true;
+  #virtualisation.docker.enableOnBoot = true;
 
   services = {
     ntp.enable = true;
@@ -65,6 +74,9 @@
     dbus.enable = true;
     udisks2.enable = true;
     udev.packages = [ pkgs.libmtp.bin ];
+    udev.extraRules = ''
+      SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"
+    '';
   };
 
   services.xserver = {
@@ -108,16 +120,17 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    ardour
-    audacity
+    #ardour
+    #audacity
     bind
     #blender
     cargo
     chromium
     clang
     colordiff
-    cowsay
-    ddd
+    #cowsay
+    #ddd
+    #docker
     file
     firefox
     fzf
@@ -126,19 +139,21 @@
     git
     git-hub
     gitAndTools.git-extras
-    gcc5
+    gcc
     gdb
     glxinfo
     gnupg1
     gparted
-    handbrake
+    #handbrake
     hexchat
     htop
     inkscape
     iotop
     jack2Full
     jmtpfs
+    kitty
     libnotify
+    libreoffice
     lsof
     manpages
     mpv
@@ -147,9 +162,10 @@
     pciutils
     nodejs
     nox
+    obs-studio
     p7zip
     pavucontrol
-    pidgin
+    #pidgin
     powertop
     psmisc
     python
@@ -159,9 +175,10 @@
     rustc
     s3cmd
     simplescreenrecorder
-    #subversionClient
-    synthv1
+    subversionClient
+    #synthv1
     telnet
+    thunderbird
     unrar
     unzip
     upx
@@ -187,8 +204,14 @@
   users.extraUsers.andy = {
     isNormalUser = true;
     description = "Andrew Kelley";
-    extraGroups = [ "wheel"  "networkmanager" "video" "power" "vboxusers" "audio" ];
+    extraGroups = [ "wheel"  "networkmanager" "video" "power" "vboxusers" "audio" "docker" ];
     uid = 1000;
+  };
+  users.extraUsers.alee = {
+    isNormalUser = true;
+    description = "Alexandra Gillis";
+    extraGroups = [ "networkmanager" "video" "power" "audio" ];
+    uid = 1001;
   };
   users.defaultUserShell = "/run/current-system/sw/bin/fish";
 
