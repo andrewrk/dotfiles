@@ -10,212 +10,164 @@
       ./hardware-configuration.nix
     ];
 
+  # needed for the wifi firmware
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.pulseaudio = true;
 
-  nixpkgs.config.chromium = {
-      # https://github.com/NixOS/nixpkgs/issues/22333
-      enableWideVine = false;
-  };
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  time.timeZone = "America/New_York";
+  boot.kernelPackages = pkgs.linuxPackages_5_4;
 
-  # Use the gummiboot efi boot loader.
-  boot = {
-    #kernelPackages = pkgs.linuxPackages_latest;
-    cleanTmpDir = true;
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
+  #boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  networking.hostName = "ark"; # Define your hostname.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
+  networking.enableB43Firmware = true;
 
-    # sadly some important applications, such as firefox, behave poorly
-    # with overcommit disabled.
-    #kernel.sysctl = {
-    #  "vm.overcommit_memory" = 2; # disable overcommit
-
-    #};
-
-    # Power saving
-    #kernelParams = [
-    #  "pcie_aspm=force"
-    #  "i915.enable_psr=1"
-    #  "i915.enable_fbc=1"
-    #  "i915.enable_rc6=7"
-    #];
-  };
-
-  networking = {
-    hostName = "xps";
-    networkmanager.enable = true;
-    enableB43Firmware = true;
-  };
-
-  hardware = {
-    enableAllFirmware = true;
-    opengl = {
-      driSupport32Bit = true;
-    };
-    pulseaudio = {
-      enable = true;
-      package = pkgs.pulseaudioFull;
-      support32Bit = true;
-    };
-  };
-
-  virtualisation.virtualbox.host.enable = false;
-  #nixpkgs.config.virtualbox.enableExtensionPack = false;
-
-  #virtualisation.docker.enable = true;
-  #virtualisation.docker.enableOnBoot = true;
-
-  services = {
-    ntp.enable = true;
-    locate.enable = true;
-    dbus.enable = true;
-    udisks2.enable = true;
-    udev.packages = [ pkgs.libmtp.bin ];
-    udev.extraRules = ''
-      SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"
-    '';
-  };
-
-  services.xserver = {
-    enable = true;
-    #videoDrivers = [ "nvidia" ];
-    layout = "us";
-    xkbOptions = "eurosign:e";
-    synaptics = {
-      enable = true;
-      twoFingerScroll = true;
-      additionalOptions = ''
-        Option "ClickPad" "true"
-        Option "EmulateMidButtonTime" "0"
-        Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
-      '';
-    };
-    desktopManager.xterm.enable = false;
-    desktopManager.xfce.enable = true;
-  };
-
-  security = {
-    sudo.enable = true;
-    sudo.wheelNeedsPassword = false;
-    rtkit.enable = true;
-
-    pam.loginLimits = [
-      { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
-      { domain = "@audio"; item = "rtprio"; type = "-"; value = "99"; }
-      { domain = "@audio"; item = "nofile"; type = "soft"; value = "99999"; }
-      { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
-    ];
-  };
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   i18n = {
-    consoleFont = "lat9w-16";
+    consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "dvorak";
     defaultLocale = "en_US.UTF-8";
   };
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
+  # Set your time zone.
+  time.timeZone = "America/New_York";
+
+  security = {
+    sudo.enable = true;
+    sudo.wheelNeedsPassword = false;
+  };
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #ardour
-    #audacity
-    bind
-    #blender
-    cargo
-    chromium
     clang
     colordiff
-    #cowsay
-    #ddd
-    #docker
     file
     firefox
     fzf
+    gcc
     gcolor2
+    gdb
     gimp
     git
-    git-hub
     gitAndTools.git-extras
-    gcc
-    gdb
-    glxinfo
+    gnome-themes-standard
     gnupg1
     gparted
-    #handbrake
     hexchat
     htop
-    inkscape
-    iotop
-    jack2Full
     jmtpfs
-    kitty
+    jq
     libnotify
     libreoffice
     lsof
     manpages
-    mpv
-    mupdf
     networkmanagerapplet
-    pciutils
     nodejs
     nox
     obs-studio
-    p7zip
     pavucontrol
-    #pidgin
-    powertop
-    psmisc
-    python
+    pciutils
     python3
-    qjackctl
-    ruby
-    rustc
+    qemu
     s3cmd
-    simplescreenrecorder
     subversionClient
-    #synthv1
     telnet
     thunderbird
-    unrar
     unzip
-    upx
     valgrind
+    vim
     vlc
+    wasmtime
     wget
-    xdg-user-dirs
-    xlibs.xev
-    xfce.thunar_volman
-    xfce.xfce4_systemload_plugin
-    xfce.xfce4_cpufreq_plugin
-    xfce.xfce4_cpugraph_plugin
-    xfce.xfce4_power_manager
-    xfce.xfce4taskmanager
+    xfce4-14.thunar-volman
+    xfce4-14.xfce4-taskmanager
+    xfce.xfce4-cpugraph-plugin
     xlockmore
     zip
   ];
 
-
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryFlavor = "gtk2";
+  };
   programs.fish.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.andy = {
-    isNormalUser = true;
-    description = "Andrew Kelley";
-    extraGroups = [ "wheel"  "networkmanager" "video" "power" "vboxusers" "audio" "docker" ];
-    uid = 1000;
+  # List services that you want to enable:
+
+  #services.openssh.enable = true;
+  services.ntp.enable = true;
+  services.dbus.enable = true;
+  services.udisks2.enable = true;
+  services.udev.packages = [ pkgs.libmtp.bin ];
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"
+  '';
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # Enable sound.
+  sound.enable = true;
+  nixpkgs.config.pulseaudio = true;
+  hardware.pulseaudio.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.enableRedistributableFirmware = true;
+
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+    #videoDrivers = [ "nvidia" ];
+    layout = "us";
+    desktopManager.xfce.enable = true;
+
+    # synaptics = {
+    #   enable = true;
+    #   twoFingerScroll = true;
+    #   additionalOptions = ''
+    #     Option "ClickPad" "true"
+    #     Option "EmulateMidButtonTime" "0"
+    #     Option "SoftButtonAreas" "50% 0 82% 0 0 0 0 0"
+    #   '';
+    # };
   };
-  users.extraUsers.alee = {
+  # services.xserver.xkbOptions = "eurosign:e";
+
+  # Enable touchpad support.
+  services.xserver.libinput.enable = true;
+
+  # Enable the KDE Desktop Environment.
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.andy = {
+    description = "Andrew Kelley";
     isNormalUser = true;
-    description = "Alexandra Gillis";
-    extraGroups = [ "networkmanager" "video" "power" "audio" ];
-    uid = 1001;
+    extraGroups = [ "wheel" "networkmanager" "video" "power" "vboxusers" "audio" "docker" ];
+    uid = 1000;
   };
   users.defaultUserShell = "/run/current-system/sw/bin/fish";
 
-  # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.03";
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system.stateVersion = "19.03"; # Did you read the comment?
 
 }
