@@ -103,6 +103,7 @@ pkgs : {
     all = pkgs.buildEnv {
       name = "all";
       paths = [
+        asciinema
         ag
         ctags
         my_vim
