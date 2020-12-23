@@ -9,3 +9,4 @@ tags
 *.swn
 *.swm
 .gdb_history
+.vscode

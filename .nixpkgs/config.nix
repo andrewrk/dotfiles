@@ -21,10 +21,15 @@ pkgs : {
         set hlsearch
         set history=700
         set t_Co=256
+        set termguicolors
+        set background=dark
         set tabpagemax=1000
         set ruler
         set nojoinspaces
         set shiftround
+        set relativenumber
+
+        colorscheme sitruuna
 
         set nolbr
         set tw=0
@@ -60,10 +65,6 @@ pkgs : {
         map <C-H> ebdw%x<C-O>x
         nnoremap gp `[v`]
         
-        " Insert a timestamp
-        nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-        imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
-
         " Toggle paste mode on and off
         map <leader>v :setlocal paste!<cr>
         
@@ -86,8 +87,6 @@ pkgs : {
         let g:ycm_autoclose_preview_window_after_completion = 1
 
         let g:zig_fmt_autosave = 1
-
-        set bg=dark
       '';
 
       vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;

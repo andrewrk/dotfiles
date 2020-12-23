@@ -1,7 +1,7 @@
 [user]
 	name = Andrew Kelley
 	email = andrew@ziglang.org
-	signingkey = 7C5F548F728501A9
+  signingkey = 7C5F548F728501A9
 [color]
 	diff = auto
 	status = auto
@@ -26,5 +26,7 @@
   host = imaps://mail.ziglang.org
   user = andrew
   folder = "Drafts"
-[commit]
-	gpgsign = true
+#[commit]
+#	gpgsign = false
+[tar "tar.xz"]
+	command = xz -c
