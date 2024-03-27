@@ -28,6 +28,7 @@ pkgs : {
         set nojoinspaces
         set shiftround
         set relativenumber
+        set nonumber
 
         colorscheme sitruuna
 
@@ -79,31 +80,23 @@ pkgs : {
         nmap <Leader>t :FZF<CR>
         nmap <Leader>h :Ag<CR>
         
-        let g:syntastic_cpp_compiler = 'clang++'
-        let g:syntastic_cpp_compiler_options = ' -std=c++11'
-        let g:syntastic_c_include_dirs = [ 'src', 'build' ]
-        let g:syntastic_cpp_include_dirs = [ 'src', 'build' ]
-
-        let g:ycm_autoclose_preview_window_after_completion = 1
-
         let g:zig_fmt_autosave = 1
       '';
 
-      vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
-      vimrcConfig.vam.pluginDictionaries = [
-        { names = [
-          "Syntastic"
-          "Tagbar"
-          "fzfWrapper"
-          "fzf-vim"
-        ]; }
-      ];
+      vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
+        start = [
+          Syntastic
+          Tagbar
+          fzfWrapper
+          fzf-vim
+        ];
+      };
     };
     all = pkgs.buildEnv {
       name = "all";
       paths = [
         asciinema
-        ag
+        silver-searcher
         ctags
         my_vim
         wolfebin
