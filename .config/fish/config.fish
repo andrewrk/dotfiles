@@ -35,6 +35,12 @@ function gp
   git pull $argv
 end
 
+function gb
+  git push origin (git commit-tree -m "" (git mktree </dev/null) </dev/null):refs/heads/$argv[1]
+  git checkout -b $argv[1]
+  git push --set-upstream --force-with-lease origin $argv[1]
+end
+
 function mkpass
   head -c 12 /dev/urandom | base64
 end
