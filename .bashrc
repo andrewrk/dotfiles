@@ -36,7 +36,7 @@ EDITOR=vim
 ccd() { mkdir -p "$@" && cd "$@"; }
 
 # add ~/bin to PATH
-export PATH="~/bin:$PATH"
+export PATH="~/local/bin:$PATH"
 
 export DEBFULLNAME="Andrew Kelley"
 export DEBEMAIL="superjoe30@gmail.com"

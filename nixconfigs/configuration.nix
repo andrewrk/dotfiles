@@ -10,40 +10,21 @@
       ./hardware-configuration.nix
     ];
 
-  # needed for the wifi firmware
-  nixpkgs.config.allowUnfree = true;
-  hardware.enableRedistributableFirmware = true;
-
-  # Use the systemd-boot EFI boot loader.
+  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_5_14;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  #virtualisation.virtualbox.host.enable = true;
-  #virtualisation.virtualbox.host.enableExtensionPack = true;
-
-  networking.hostName = "ark"; # Define your hostname.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;
-  #networking.enableB43Firmware = true;
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  # networking.useDHCP = false;
-  # networking.interfaces.wlp59s0.useDHCP = true;
+  networking.hostName = "bark"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "dvorak";
-  };
+  # Enable networking
+  networking.networkmanager.enable = true;
 
   fonts.packages = [
     pkgs.dejavu_fonts
@@ -56,137 +37,160 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  security = {
-    sudo.enable = true;
-    sudo.wheelNeedsPassword = false;
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
+
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+    ];
+    #ibus.engines = "mozc";
+  };
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    #xkbVariant = "dvorak";
+  };
+
+  hardware.opengl.driSupport32Bit = true; # For 32 bit applications
+
+  # Configure console keymap
+  #console.keyMap = "dvorak";
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
+  security.sudo.enable = true;
+  security.sudo.wheelNeedsPassword = false;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.andy = {
+    isNormalUser = true;
+    description = "Andrew Kelley";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      asciinema
+      colordiff
+      file
+      firefox
+      fzf
+      gcc
+      gdb
+      gimp
+      gitAndTools.git-extras
+      gitAndTools.gitFull
+      gnupg1
+      gparted
+      hexchat
+      htop
+      jq
+      libreoffice
+      lsof
+      man-pages
+      nodejs
+      obs-studio
+      p7zip
+      python3
+      qemu
+      s3cmd
+      silver-searcher
+      signal-desktop
+      subversionClient
+      thunderbird
+      unzip
+      v4l-utils
+      valgrind
+      vim
+      vlc
+      vscode
+      wasmtime
+      wineWowPackages.base
+      wget
+      zip
+
+      akregator
+      ark
+      kate
+      kcolorchooser
+      kdenlive
+      kmail
+      kompare
+      konversation
+    ];
+  };
+  users.defaultUserShell = "/run/current-system/sw/bin/fish";
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    audio-recorder
-    bind
-    clang
-    colordiff
-    file
-    firefox
-    fzf
-    gcc
-    gcolor2
-    gdb
-    gimp
-    gitAndTools.gitFull
-    gitAndTools.git-extras
-    gh
-    gnome-themes-extra
-    gnupg1
-    gparted
-    hexchat
-    htop
-    hyperfine
-    jmtpfs
-    jq
-    kitty
-    libnotify
-    libreoffice
-    lsof
-    man-pages
-    networkmanagerapplet
-    nodejs
-    nox
-    obs-studio
-    p7zip
-    pavucontrol
-    pciutils
-    python3
-    qemu
-    s3cmd
-    subversionClient
-    inetutils
-    thunderbird
-    unzip
-    v4l-utils
-    valgrind
-    vim
-    vlc
-    vscode
-    wasmtime
-    wget
-    zip
-
-    xfce.thunar-volman
-    xfce.xfce4-taskmanager
-    xfce.xfce4-cpugraph-plugin
-    xlockmore
-
-    #river
-    #fuzzel
-    #foot
-    #yambar
-    #pamixer
-    #bibata-cursors
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryFlavor = "gnome3";
-  };
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
   programs.fish.enable = true;
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  services.ntp.enable = true;
-  services.dbus.enable = true;
-  services.udisks2.enable = true;
-  services.udev.packages = [ pkgs.libmtp.bin ];
-  services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="0666"
-  '';
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  #networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  #networking.firewall.allowedUDPPorts = [ 22 80 443 ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-
-  # Enable CUPS to print documents.
-  #services.printing.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  hardware.opengl.driSupport32Bit = true;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
-
-  services.xserver.desktopManager.xfce.enable = true;
-
-  #programs.xwayland.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.andy = {
-    description = "Andrew Kelley";
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "power" "vboxusers" "audio" "docker" ];
-    uid = 1000;
-  };
-  users.defaultUserShell = "/run/current-system/sw/bin/fish";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -194,6 +198,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.03"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 
 }
